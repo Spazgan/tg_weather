@@ -1,4 +1,5 @@
 import requests
+import logging
 import datetime
 from config import tg_token, open_weather_token
 from aiogram import Bot, Dispatcher, types
@@ -6,18 +7,14 @@ from aiogram.types import Message
 from aiogram.filters import Command
 import asyncio
 
+logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w",
+                    format="%(asctime)s %(levelname)s %(message)s")
 # Создаем бота
 bot = Bot(token=tg_token)
 dp = Dispatcher()
 
-# Обработчик команды /start
-@dp.message(Command("start"))
-async def start_command(message: Message):
-    await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!")
-
-# Обработчик для получения погоды
-@dp.message()
-async def get_weather(message: Message):
+# Функция для получения погоды
+async def get_weather_data(city_name: str):
     code_to_smile = {
         "Clear": "Ясно \U00002600",
         "Clouds": "Облачно \U00002601",
@@ -29,21 +26,19 @@ async def get_weather(message: Message):
     }
     try:
         # Логирование для отслеживания выполнения кода
-        print(f"Запрос погоды для города: {message.text}")
+        logging.info("Запрос погоды для города: {city_name}")
 
         r = requests.get(
-            f"http://api.openweathermap.org/data/2.5/weather?q={message.text}&appid={open_weather_token}&units=metric"
+            f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={open_weather_token}&units=metric"
         )
         data = r.json()
 
         # Проверка на успешный ответ
         if data.get("cod") != 200:
-            await message.reply("\U00002620 Не удалось найти город. Проверьте название. \U00002620")
-            return
+            return None
 
         city = data["name"]
         cur_weather = data["main"]["temp"]
-
         weather_description = data["weather"][0]["main"]
         wd = code_to_smile.get(weather_description, "Посмотри в окно, не пойму что там за погода")
 
@@ -54,24 +49,49 @@ async def get_weather(message: Message):
         sunset_timestamp = datetime.datetime.fromtimestamp(data['sys']['sunset'])
         length_of_the_day = sunset_timestamp - sunrise_timestamp
 
-        # Логирование перед отправкой данных
-        print(f"Отправка данных пользователю: {city}, {cur_weather}, {wd}")
-
-        # Отправка ответа пользователю
-        await message.reply(f"\n***{datetime.datetime.now().strftime('%d-%m-%Y %H:%M')}***"
-        # await message.reply(
-            f"\nПогода в городе: {city}\nТемпература: {cur_weather}°C {wd}\n"
-            f"Влажность: {humidity}%\nДавление: {pressure} мм.рт.ст.\nСкорость ветра: {wind} м/с\n"
-            f"Рассвет: {sunrise_timestamp}\nЗакат: {sunset_timestamp}\nСветовой день: {length_of_the_day}\nХорошего дня!"
-        )
+        # Собираем данные о погоде в словарь
+        weather_data = {
+            "city": city,
+            "cur_weather": cur_weather,
+            "wd": wd, 
+            "humidity": humidity,
+            "pressure": pressure,
+            "wind": wind,
+            "sunrise_timestamp": sunrise_timestamp,
+            "sunset_timestamp": sunset_timestamp,
+            "length_of_the_day": length_of_the_day
+        }
+        return weather_data
     except Exception as ex:
-        await message.reply(f"Ошибка: {ex}")
-        await message.reply("\U00002620 Проверьте название города \U00002620")
+        logging.info(f"Ошибка при получении данных: {ex}")
 
+# Функция для отправки ответа с погодой пользователю
+async def send_weather_response(message: Message, weather_data):
+    if weather_data:
+        logging.info(f"Отправка данных пользователю: {weather_data['city']}, {weather_data['cur_weather']}, {weather_data['wd']}")
+        await message.reply(f"\n***{datetime.datetime.now().strftime('%d-%m-%Y %H:%M')}***"
+            f"\nПогода в городе: {weather_data['city']}\nТемпература: {weather_data['cur_weather']}°C {weather_data['wd']}\n"
+            f"Влажность: {weather_data['humidity']}%\nДавление: {weather_data['pressure']} мм.рт.ст.\nСкорость ветра: {weather_data['wind']} м/с\n"
+            f"Рассвет: {weather_data['sunrise_timestamp']}\nЗакат: {weather_data['sunset_timestamp']}\nСветовой день: {weather_data['length_of_the_day']}\nХорошего дня!"
+        )
+    else:
+        await message.reply("\U00002620 Не удалось найти город. Проверьте название. \U00002620")
+
+# Обработчик команды /start
+@dp.message(Command("start"))
+async def start_command(message: Message):
+    await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!")
+
+# Обработчик для получения погоды
+@dp.message()
+async def get_weather(message: Message):
+    city_name = message.text
+    weather_data = await get_weather_data(city_name)
+    await send_weather_response(message, weather_data)
 
 # Запуск бота
 async def main():
-    print("Бот запущен")  # Логирование запуска бота
+    logging.info("Бот запущен")  # Логирование запуска бота
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
