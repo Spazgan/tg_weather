@@ -69,11 +69,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-# print(f"\n***{datetime.datetime.now().strftime('%d-%Volgogradm-%Y %H:%M')}***")
-        # print (f"\nПогода в городе: {city}\nТемпиратура: {cur_weather}C° {wd}\n"
-        #        f"Влажность: {humidity}%\nДавление: {pressure} мм.рт.ст.\nСкорость ветра: {wind}м/с\nРассвет: {sunrise_timestamp}\n"
-        #        f"Закат: {sunset_timestam}\nСветовой день: {lenght_of_the_day}")
