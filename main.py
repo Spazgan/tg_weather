@@ -50,12 +50,11 @@ def get_weather(city, open_weather_token):
         return weather_data
     
     except Exception as ex:
-        print(ex)
-        print("Проверьте город")
+        print(ex)    
 
 def print_weather(weather_data):
     if weather_data:
-        print(f"\n***{datetime.datetime.now().strftime('%d-%Volgogradm-%Y %H:%M')}***")
+        print(f"\n***{datetime.datetime.now().strftime('%d-%m-%Y %H:%M')}***")
         print (f"\nПогода в городе: {weather_data['city']}\nТемпиратура: {weather_data['cur_weather']}C° {weather_data['wd']}\n"
                f"Влажность: {weather_data['humidity']}%\nДавление: {weather_data['pressure']} мм.рт.ст.\nСкорость ветра: {weather_data['wind']}м/с\nРассвет: {weather_data['sunrise_timestamp']}\n"
                f"Закат: {weather_data['sunset_timestamp']}\nСветовой день: {weather_data['lenght_of_the_day']}")
