@@ -1,11 +1,13 @@
 import requests
 import logging
 import datetime
+from DB import get_all_users, get_user_by_id, add_user
 from config import tg_token, open_weather_token
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import Message
 from aiogram.filters import Command
 import asyncio
+import json
 
 logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
@@ -81,6 +83,18 @@ async def send_weather_response(message: Message, weather_data):
 @dp.message(Command("start"))
 async def start_command(message: Message):
     await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!")
+
+@dp.message(Command("reg"))
+async def registration(message: Message):
+    user_id = message.from_user.id
+    username = message.from_user.username
+    first_name = message.from_user.first_name
+    last_name = message.from_user.last_name
+
+    # Вызов функции с аргументами
+    await add_user(user_id=user_id, username=username, first_name=first_name, last_name=last_name)
+
+    await message.reply("Вы успешно зарегистрированы!")
 
 # Обработчик для получения погоды
 @dp.message()

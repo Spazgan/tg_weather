@@ -1,14 +1,67 @@
-2024-12-08 17:57:53,701 INFO Бот запущен
-2024-12-08 17:57:53,702 INFO Start polling
-2024-12-08 17:57:54,516 INFO Run polling for bot @InsightTesBot id=7649414423 - 'AItestBot'
-2024-12-08 17:57:54,648 INFO Запрос погоды для города: {city_name}
-2024-12-08 17:57:54,916 INFO Отправка данных пользователю: Moscow, -2.88, Снег \U0001f328
-2024-12-08 17:57:55,372 INFO Update id=480729954 is handled. Duration 725 ms by bot id=7649414423
-2024-12-08 17:58:20,829 INFO Запрос погоды для города: {city_name}
-2024-12-08 17:58:21,028 INFO Отправка данных пользователю: Moscow, -2.88, Снег \U0001f328
-2024-12-08 17:58:21,549 INFO Update id=480729955 is handled. Duration 720 ms by bot id=7649414423
-2024-12-08 17:58:43,439 INFO Запрос погоды для города: {city_name}
-2024-12-08 17:58:43,658 INFO Отправка данных пользователю: Volgograd, -1.57, Ясно \u2600
-2024-12-08 17:58:44,069 INFO Update id=480729956 is handled. Duration 630 ms by bot id=7649414423
-2024-12-08 18:01:22,317 INFO Polling stopped
-2024-12-08 18:01:22,569 INFO Polling stopped for bot @InsightTesBot id=7649414423 - 'AItestBot'
+2024-12-15 21:56:26,125 INFO Бот запущен
+2024-12-15 21:56:26,126 INFO Start polling
+2024-12-15 21:56:26,658 INFO Run polling for bot @InsightTesBot id=7649414423 - 'WeatherBot'
+2024-12-15 21:56:38,686 INFO Запрос погоды для города: {city_name}
+2024-12-15 21:56:38,973 INFO Отправка данных пользователю: Moscow, -2.84, Облачно \u2601
+2024-12-15 21:56:43,561 INFO Update id=480729971 is handled. Duration 4875 ms by bot id=7649414423
+2024-12-15 21:56:50,709 INFO Update id=480729972 is not handled. Duration 16 ms by bot id=7649414423
+2024-12-15 21:56:50,709 ERROR Cause exception while process update id=480729972 by bot id=7649414423
+AttributeError: 'function' object has no attribute 'commit'
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        observer=observer, update_type=update_type, event=telegram_event, **data
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\main_tg_weather.py", line 95, in registration
+    await add_user(user_id=user_id, username=username, first_name=first_name, last_name=last_name)
+  File "c:\Users\den-s\Desktop\Bot_Weather\DB.py", line 47, in add_user
+    await select.commit()
+          ^^^^^^^^^^^^^
+AttributeError: 'function' object has no attribute 'commit'
+2024-12-15 21:59:02,087 ERROR Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2024-12-15 21:59:02,087 WARNING Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7649414423)
+2024-12-15 21:59:13,383 INFO Connection established (tryings = 1, bot id = 7649414423)
+2024-12-15 22:06:30,021 INFO Polling stopped
+2024-12-15 22:06:30,280 INFO Polling stopped for bot @InsightTesBot id=7649414423 - 'WeatherBot'
