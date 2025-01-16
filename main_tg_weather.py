@@ -1,7 +1,7 @@
 import requests
 import logging
 import datetime
-from DB import get_all_users, get_user_by_id, add_user
+from DB import get_user_by_username, get_session, add_user
 from config import tg_token, open_weather_token
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import Message
@@ -9,8 +9,10 @@ from aiogram.filters import Command
 import asyncio
 import json
 
+# Настройка логирования
 logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
+
 # Создаем бота
 bot = Bot(token=tg_token)
 dp = Dispatcher()
@@ -27,7 +29,7 @@ async def get_weather_data(city_name: str):
         "Mist": "Туман \U0001F32B"
     }
     try:
-        logging.info("Запрос погоды для города: {city_name}")
+        logging.info(f"Запрос погоды для города: {city_name}")
 
         r = requests.get(
             f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={open_weather_token}&units=metric"
@@ -81,17 +83,32 @@ async def send_weather_response(message: Message, weather_data):
 async def start_command(message: Message):
     await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!")
 
+# Обработчик команды /reg
 @dp.message(Command("reg"))
 async def registration(message: Message):
     user_id = message.from_user.id
     username = message.from_user.username
-    first_name = message.from_user.first_name
-    last_name = message.from_user.last_name
+    city = message.text.split(" ", 1)[1] if len(message.text.split(" ", 1)) > 1 else None  # Получаем город из сообщения
 
-    # Вызов функции с аргументами
-    await add_user(user_id=user_id, username=username, first_name=first_name, last_name=last_name)
-
-    await message.reply("Вы успешно зарегистрированы!")
+    # Проверка, зарегистрирован ли уже пользователь
+    existing_user = await get_user_by_username(username)
+    if existing_user:
+        # Если пользователь существует, обновляем его город
+        existing_user.city = city
+        async for session in get_session():
+            session.add(existing_user)
+            await session.commit()
+        await message.reply(f"Вы уже зарегистрированы. Ваш город был обновлён на {city}.")
+    else:
+        # Если пользователя нет, регистрируем нового
+        await add_user(user_id=user_id, username=username, first_name=message.from_user.first_name, last_name=message.from_user.last_name)
+        # После регистрации пользователя, обновляем его город
+        new_user = await get_user_by_username(username)
+        new_user.city = city
+        async for session in get_session():
+            session.add(new_user)
+            await session.commit()
+        await message.reply(f"Вы успешно зарегистрированы, ваш город: {city}!")
 
 # Обработчик для получения погоды
 @dp.message()
