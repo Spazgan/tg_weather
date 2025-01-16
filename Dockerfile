@@ -8,4 +8,5 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python"]
-CMD ["run.py"]
+EXPOSE 80
+CMD ["main_tg_weather.py"]

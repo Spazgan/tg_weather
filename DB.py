@@ -17,7 +17,7 @@ class User(Base):
     city = Column(String)
 
 # Создаем асинхронный движок для работы с PostgreSQL
-DATABASE_URL = "postgresql+asyncpg://username:password@localhost/dbname"
+DATABASE_URL = "postgresql+asyncpg://postgres:12345@localhost/weather_bot"
 engine = create_async_engine(DATABASE_URL, echo=True)
 
 # Создаем асинхронную сессию
