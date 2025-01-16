@@ -1,0 +1,1473 @@
+2025-01-16 12:58:59,604 INFO Бот запущен
+2025-01-16 12:58:59,605 INFO Start polling
+2025-01-16 12:58:59,999 INFO Run polling for bot @InsightTesBot id=7649414423 - 'WeatherBot'
+2025-01-16 12:59:00,376 INFO select pg_catalog.version()
+2025-01-16 12:59:00,377 INFO [raw sql] ()
+2025-01-16 12:59:00,383 INFO select current_schema()
+2025-01-16 12:59:00,384 INFO [raw sql] ()
+2025-01-16 12:59:00,389 INFO show standard_conforming_strings
+2025-01-16 12:59:00,390 INFO [raw sql] ()
+2025-01-16 12:59:00,393 INFO BEGIN (implicit)
+2025-01-16 12:59:00,401 INFO SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2025-01-16 12:59:00,402 INFO [generated in 0.00197s] ('Spazgan2',)
+2025-01-16 12:59:00,416 INFO Update id=480730059 is not handled. Duration 263 ms by bot id=7649414423
+2025-01-16 12:59:00,416 ERROR Cause exception while process update id=480730059 by bot id=7649414423
+ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 510, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, self._invalidate_schema_cache_asof
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 756, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, name=self._prepared_statement_name_func()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "asyncpg\\protocol\\protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        observer=observer, update_type=update_type, event=telegram_event, **data
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\main_tg_weather.py", line 82, in registration
+    user = await get_user_by_username(username)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\DB.py", line 63, in get_user_by_username
+    result = await session.execute(select(User).filter(User.username == username))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 461, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-01-16 12:59:00,476 INFO ROLLBACK
+2025-01-16 13:07:13,834 INFO BEGIN (implicit)
+2025-01-16 13:07:13,836 INFO SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2025-01-16 13:07:13,837 INFO [cached since 493.4s ago] ('Spazgan2',)
+2025-01-16 13:07:13,840 INFO Update id=480730060 is not handled. Duration 6 ms by bot id=7649414423
+2025-01-16 13:07:13,840 ERROR Cause exception while process update id=480730060 by bot id=7649414423
+ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 510, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, self._invalidate_schema_cache_asof
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 756, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, name=self._prepared_statement_name_func()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "asyncpg\\protocol\\protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        observer=observer, update_type=update_type, event=telegram_event, **data
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\main_tg_weather.py", line 82, in registration
+  File "c:\Users\den-s\Desktop\Bot_Weather\DB.py", line 63, in get_user_by_username
+  File "D:\Python\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 461, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-01-16 13:07:13,914 INFO ROLLBACK
+2025-01-16 13:07:18,480 INFO Update id=480730061 is handled. Duration 756 ms by bot id=7649414423
+2025-01-16 13:07:21,927 INFO BEGIN (implicit)
+2025-01-16 13:07:21,928 INFO SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2025-01-16 13:07:21,929 INFO [cached since 501.5s ago] ('Spazgan2',)
+2025-01-16 13:07:21,932 INFO Update id=480730062 is not handled. Duration 6 ms by bot id=7649414423
+2025-01-16 13:07:21,932 ERROR Cause exception while process update id=480730062 by bot id=7649414423
+ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 510, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, self._invalidate_schema_cache_asof
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 756, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, name=self._prepared_statement_name_func()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "asyncpg\\protocol\\protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        observer=observer, update_type=update_type, event=telegram_event, **data
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\main_tg_weather.py", line 82, in registration
+  File "c:\Users\den-s\Desktop\Bot_Weather\DB.py", line 63, in get_user_by_username
+  File "D:\Python\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 461, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-01-16 13:07:21,946 INFO ROLLBACK
+2025-01-16 13:08:40,154 INFO BEGIN (implicit)
+2025-01-16 13:08:40,155 INFO SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2025-01-16 13:08:40,157 INFO [cached since 579.8s ago] ('Spazgan2',)
+2025-01-16 13:08:40,160 INFO Update id=480730063 is not handled. Duration 7 ms by bot id=7649414423
+2025-01-16 13:08:40,161 ERROR Cause exception while process update id=480730063 by bot id=7649414423
+ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 510, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, self._invalidate_schema_cache_asof
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 756, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, name=self._prepared_statement_name_func()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "asyncpg\\protocol\\protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        observer=observer, update_type=update_type, event=telegram_event, **data
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\main_tg_weather.py", line 82, in registration
+    await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\DB.py", line 63, in get_user_by_username
+    return result.scalars().first()
+             ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 461, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-01-16 13:08:40,256 INFO ROLLBACK
+2025-01-16 13:08:49,377 INFO BEGIN (implicit)
+2025-01-16 13:08:49,379 INFO SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2025-01-16 13:08:49,381 INFO [cached since 589s ago] ('Spazgan2',)
+2025-01-16 13:08:49,384 INFO Update id=480730064 is not handled. Duration 9 ms by bot id=7649414423
+2025-01-16 13:08:49,385 ERROR Cause exception while process update id=480730064 by bot id=7649414423
+ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 510, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, self._invalidate_schema_cache_asof
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 756, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, name=self._prepared_statement_name_func()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "asyncpg\\protocol\\protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        observer=observer, update_type=update_type, event=telegram_event, **data
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\main_tg_weather.py", line 82, in registration
+    await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\DB.py", line 63, in get_user_by_username
+    return result.scalars().first()
+             ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 461, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-01-16 13:08:49,417 INFO ROLLBACK
+2025-01-16 13:10:44,170 INFO BEGIN (implicit)
+2025-01-16 13:10:44,171 INFO SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2025-01-16 13:10:44,173 INFO [cached since 703.8s ago] ('Spazgan2',)
+2025-01-16 13:10:44,177 INFO Update id=480730065 is not handled. Duration 7 ms by bot id=7649414423
+2025-01-16 13:10:44,177 ERROR Cause exception while process update id=480730065 by bot id=7649414423
+ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 510, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, self._invalidate_schema_cache_asof
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 756, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, name=self._prepared_statement_name_func()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\asyncpg\connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "asyncpg\\protocol\\protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        observer=observer, update_type=update_type, event=telegram_event, **data
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\main_tg_weather.py", line 82, in registration
+    await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\den-s\Desktop\Bot_Weather\DB.py", line 63, in get_user_by_username
+    return result.scalars().first()
+             ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 461, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 546, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 497, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Python\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 780, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец users.first_name не существует
+[SQL: SELECT users.id, users.username, users.first_name, users.last_name 
+FROM users 
+WHERE users.username = $1::VARCHAR]
+[parameters: ('Spazgan2',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-01-16 13:10:44,198 INFO ROLLBACK
+2025-01-16 13:10:49,905 INFO Update id=480730066 is handled. Duration 1112 ms by bot id=7649414423

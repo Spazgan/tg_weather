@@ -18,7 +18,7 @@ def get_weather(city, open_weather_token):
             f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={open_weather_token}&units=metric"
         )
         data = r.json()
-        # pprint(data)
+        pprint(data)
 
         city = data["name"]
         cur_weather = data["main"]["temp"]

@@ -9,7 +9,7 @@ from aiogram.filters import Command
 import asyncio
 import json
 
-logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w",
+logging.basicConfig(level=logging.INFO, filename="py_log.log", filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
 # Создаем бота
 bot = Bot(token=tg_token)
@@ -27,7 +27,6 @@ async def get_weather_data(city_name: str):
         "Mist": "Туман \U0001F32B"
     }
     try:
-        # Логирование для отслеживания выполнения кода
         logging.info("Запрос погоды для города: {city_name}")
 
         r = requests.get(
@@ -35,7 +34,6 @@ async def get_weather_data(city_name: str):
         )
         data = r.json()
 
-        # Проверка на успешный ответ
         if data.get("cod") != 200:
             return None
 
@@ -51,7 +49,6 @@ async def get_weather_data(city_name: str):
         sunset_timestamp = datetime.datetime.fromtimestamp(data['sys']['sunset'])
         length_of_the_day = sunset_timestamp - sunrise_timestamp
 
-        # Собираем данные о погоде в словарь
         weather_data = {
             "city": city,
             "cur_weather": cur_weather,
