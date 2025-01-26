@@ -14,7 +14,7 @@ class User(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
-    city = Column(String)
+    last_city = Column(String)
 
 # Создаем асинхронный движок для работы с PostgreSQL
 DATABASE_URL = "postgresql+asyncpg://postgres:12345@localhost/weather_bot"
@@ -31,9 +31,9 @@ async def get_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 # Функция для добавления нового пользователя
-async def add_user(username: str, city: str) -> User:
-    async for session in get_session():
-        user = User(username=username, city=city)
+async def add_user(user_id: int, username: str, city: Optional[str]) -> User:
+    async with get_session() as session:
+        user = User(id=user_id, username=username, last_city=city)
         session.add(user)
         await session.commit()
         return user

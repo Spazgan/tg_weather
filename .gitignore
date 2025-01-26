@@ -1,4 +1,7 @@
 py_log.log
-config.py
+config.txt
 *.log
 main.py
+.xml
+.iml
+.pyc

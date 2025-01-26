@@ -64,7 +64,8 @@ async def get_weather_data(city_name: str):
         }
         return weather_data
     except Exception as ex:
-        logging.info(f"Ошибка при получении данных: {ex}")
+        logging.error(f"Ошибка при получении данных: {ex}")
+        return None
 
 # Функция для отправки ответа с погодой пользователю
 async def send_weather_response(message: Message, weather_data):
@@ -88,26 +89,24 @@ async def start_command(message: Message):
 async def registration(message: Message):
     user_id = message.from_user.id
     username = message.from_user.username
-    city = message.text.split(" ", 1)[1] if len(message.text.split(" ", 1)) > 1 else None  # Получаем город из сообщения
+    city = message.text.split(maxsplit=1)[-1]  # Извлекаем город из текста
+
+    if not city:
+        await message.reply("Пожалуйста, укажите город после команды. Например: /reg Moscow.")
+        return
 
     # Проверка, зарегистрирован ли уже пользователь
     existing_user = await get_user_by_username(username)
     if existing_user:
         # Если пользователь существует, обновляем его город
-        existing_user.city = city
-        async for session in get_session():
+        existing_user.last_city = city
+        async with get_session() as session:
             session.add(existing_user)
             await session.commit()
         await message.reply(f"Вы уже зарегистрированы. Ваш город был обновлён на {city}.")
     else:
         # Если пользователя нет, регистрируем нового
-        await add_user(user_id=user_id, username=username, first_name=message.from_user.first_name, last_name=message.from_user.last_name)
-        # После регистрации пользователя, обновляем его город
-        new_user = await get_user_by_username(username)
-        new_user.city = city
-        async for session in get_session():
-            session.add(new_user)
-            await session.commit()
+        await add_user(user_id=user_id, username=username, city=city)
         await message.reply(f"Вы успешно зарегистрированы, ваш город: {city}!")
 
 # Обработчик для получения погоды
