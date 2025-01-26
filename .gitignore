@@ -1,5 +1,5 @@
 py_log.log
-config.txt
+config.py
 *.log
 main.py
 .xml
