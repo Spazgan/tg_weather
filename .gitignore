@@ -1,7 +1,21 @@
-py_log.log
-config.py
+# Игнорируем все .log файлы
 *.log
+
+# Игнорируем файлы конфигурации Python
+*.pyc
+*.pyo
+
+# Игнорируем все XML файлы
+*.xml
+
+# Игнорируем файлы IntelliJ IDEA
+*.iml
+
+# Игнорируем py_log.log
+py_log.log
+
+# Игнорируем config.py
+config.py
+
+# Игнорируем main.py
 main.py
-.xml
-.iml
-.pyc
