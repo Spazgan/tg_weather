@@ -1,46 +1,33 @@
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.future import select
-from typing import AsyncGenerator, Optional
 
-# Создаем базовый класс для всех моделей
+# Указываем данные для подключения
+DATABASE_URL = "postgresql://postgres:12345@localhost/weather_bot"
+
+# Создаём движок SQLAlchemy
+engine = create_engine(DATABASE_URL, echo=False)
+
+# Определяем базовый класс для моделей
 Base = declarative_base()
 
-# Определяем модель User
+# Определяем модель таблицы users
 class User(Base):
     __tablename__ = 'users'
-    
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    last_city = Column(String)
 
-# Создаем асинхронный движок для работы с PostgreSQL
-DATABASE_URL = "postgresql+asyncpg://postgres:12345@localhost/weather_bot"
-engine = create_async_engine(DATABASE_URL, echo=True)
+    id = Column(Integer, primary_key=True)
+    username = Column(String, unique=True, nullable=False)
+    city = Column(String, nullable=True)
 
-# Создаем асинхронную сессию
-async_session = sessionmaker(
-    engine, class_=AsyncSession, expire_on_commit=False
-)
+# Создаём таблицы, если их нет
+Base.metadata.create_all(engine)
 
-# Функция для получения сессии
-async def get_session() -> AsyncGenerator[AsyncSession, None]:
-    async with async_session() as session:
-        yield session
+# Создаём сессию для работы с базой
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Функция для добавления нового пользователя
-async def add_user(user_id: int, username: str, city: Optional[str]) -> User:
-    async with get_session() as session:
-        user = User(id=user_id, username=username, last_city=city)
-        session.add(user)
-        await session.commit()
-        return user
-
-# Функция для получения пользователя по имени пользователя
-async def get_user_by_username(username: str) -> Optional[User]:
-    async for session in get_session():
-        result = await session.execute(select(User).filter_by(username=username))
-        user = result.scalars().first()  # Получаем первого пользователя или None
-        return user
+# Функция для получения пользователя по username
+def get_user(username: str):
+    session = SessionLocal()
+    user = session.query(User).filter_by(username=username).first()
+    session.close()
+    return user
