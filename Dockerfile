@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python"]
 EXPOSE 80
-CMD ["main_tg_weather.py"]
+CMD ["run.py"]
