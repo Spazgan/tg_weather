@@ -1,5 +1,5 @@
 from aiogram import Bot, Dispatcher
-from aiogram.types import Message
+from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.filters import Command
 from data import get_user, add_or_update_user
 from view import send_weather_response, send_registration_response
@@ -9,11 +9,22 @@ from config import tg_token
 bot = Bot(token=tg_token)  # Замените на свой токен
 dp = Dispatcher()
 
+# Создаем клавиатуру с кнопкой "Получить погоду"
+weather_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="Получить погоду")]
+    ],
+    resize_keyboard=True  # Клавиатура будет автоматически подстраиваться под размер экрана
+)
+
 # Обработчик команды /start
 @dp.message(Command("start"))
 async def start_command(message: Message):
-    await message.reply("Привет! Напиши мне название города, и я пришлю тебе сводку погоды!\n"
-                        "Чтобы зарегистрировать свой город, используй команду: /reg [город]")
+    await message.reply(
+        "Привет! Напиши мне название города, и я пришлю тебе сводку погоды!\n"
+        "Чтобы зарегистрировать свой город, используй команду: /reg [город]",
+        reply_markup=weather_keyboard  # Добавляем клавиатуру с кнопкой
+    )
 
 # Обработчик команды /reg (регистрация города)
 @dp.message(Command("reg"))
@@ -36,16 +47,34 @@ async def get_weather(message: Message):
     city_name = message.text.strip()
     username = message.from_user.username or str(message.from_user.id)
 
-    if not city_name:
+    # Если пользователь нажал на кнопку "Получить погоду"
+    if city_name == "Получить погоду":
         user = get_user(username)
         if user and user.city:
             city_name = user.city
         else:
-            await message.reply("Вы не зарегистрированы. Используйте /reg [город], чтобы сохранить свой город.")
+            await message.reply(
+                "Вы не зарегистрированы. Используйте /reg [город], чтобы сохранить свой город.",
+                reply_markup=weather_keyboard  # Кнопка остается всегда
+            )
             return
 
+    # Если пользователь ввел название города вручную
+    if not city_name:
+        await message.reply(
+            "Пожалуйста, введите название города.",
+            reply_markup=weather_keyboard  # Кнопка остается всегда
+        )
+        return
+
     weather_data = await get_weather_data(city_name)
-    await send_weather_response(message, weather_data)
+    if weather_data:
+        await send_weather_response(message, weather_data)
+    else:
+        await message.reply(
+            "⚠️ Не удалось найти город. Проверьте название. ⚠️",
+            reply_markup=weather_keyboard  # Кнопка остается всегда
+        )
 
 # Запуск бота
 async def main():
